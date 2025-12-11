@@ -28,10 +28,6 @@ export default function DigitalGiftApp() {
   const [slideIndex, setSlideIndex] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [quizMsg, setQuizMsg] = useState("");
-  const [showBurst, setShowBurst] = useState(false);
-  const [finalOpen, setFinalOpen] = useState(false);
-  const [recipient, setRecipient] = useState("Beloved");
-  const [loveMessage, setLoveMessage] = useState("I love you more than anything!");
   const [voicePlaying, setVoicePlaying] = useState(false);
   const voiceRef = useRef(null);
   const bgMusicRef = useRef(null); // for background music
@@ -101,22 +97,23 @@ useEffect(() => {
   };
 
   const photos = [
-    "/image/Screenshot 2025-12-11 181915.png",
-    "/image/Screenshot 2025-12-11 181230.png",
-    "/image/Screenshot 2025-12-11 181306.png",
-    "/image/Screenshot 2025-12-11 181349.png",
-    "/image/Screenshot 2025-12-11 181757.png",
+    "/image/1st.png",
+    "/image/2nd.png",
+    "/image/3rd.png",
+    "/image/4th.png",
+    "/image/5th.png",
   ];
 
   // Slide show for page 5
   useEffect(() => {
-    if (page === 5) {
-      const interval = setInterval(() => {
-        setSlideIndex((s) => (s + 1) % photos.length);
-      }, 4000);
-      return () => clearInterval(interval);
-    }
-  }, [page]);
+  if (page === 5) {
+    const interval = setInterval(() => {
+      setSlideIndex((s) => (s + 1) % photos.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }
+}, [page, photos.length]); // ✅ photos.length சேர்த்தோம்
+
 
   // Shake animation for wrong password
   useEffect(() => {
@@ -332,18 +329,16 @@ function TypewriterText({ lines, speed = 50 }) {
   @keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
 `;
 
-
-
- useEffect(() => {
-  if (!document) return; // check if document exists
+useEffect(() => {
+  if (!document) return;
   const tag = document.createElement("style");
   tag.innerHTML = css;
   document.head.appendChild(tag);
 
   return () => {
-    document.head.removeChild(tag); // remove only the tag
+    document.head.removeChild(tag);
   };
-}, []);
+}, [css]); // ✅ css சேர்த்தோம்
 
 
   return (
@@ -597,7 +592,7 @@ function TypewriterText({ lines, speed = 50 }) {
     </button>
     <audio 
       ref={voiceRef} 
-      src="/audio/WhatsApp Audio 2025-12-11 at 12.33.24 PM.mp4" 
+      src="/audio/voice.mp4" 
       onEnded={onVoiceEnded}
     />
   </div>
