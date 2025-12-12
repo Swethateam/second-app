@@ -237,9 +237,7 @@ function onVoiceEnded() {
     setTimeout(() => setQuizMsg(""), 1200);
   }
 }
-function TypewriterText({ lines, speed = 50 }) {
-  const [displayedText, setDisplayedText] = React.useState("");
-  const [lineIndex, setLineIndex] = React.useState(0);
+
 
   React.useEffect(() => {
     if (lineIndex >= lines.length) return; // stop if all lines typed
