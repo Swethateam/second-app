@@ -238,36 +238,6 @@ function onVoiceEnded() {
   }
 }
 
-
-  React.useEffect(() => {
-    if (lineIndex >= lines.length) return; // stop if all lines typed
-    let i = 0;
-    const interval = setInterval(() => {
-      setDisplayedText((prev) => prev + lines[lineIndex].charAt(i));
-      i++;
-      if (i >= lines[lineIndex].length) {
-        clearInterval(interval);
-        setDisplayedText((prev) => prev + "\n"); // new line after each
-        setTimeout(() => setLineIndex(lineIndex + 1), 500); // delay before next line
-      }
-    }, speed);
-    return () => clearInterval(interval);
-  }, [lineIndex, lines, speed]);
-
-  return (
-    <pre style={{ 
-      fontSize: "28px", 
-      color: "#ff1a75", 
-      whiteSpace: "pre-wrap", 
-      textAlign: "center",
-      lineHeight: "1.5em"
-    }}>
-      {displayedText}
-    </pre>
-  );
-}
-
-
   const css = `
   *{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif;}
   body{margin:0;background:#fff0fb;}
